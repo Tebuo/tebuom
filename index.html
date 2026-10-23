@@ -342,6 +342,55 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+		// Responsive navigation and small progressive enhancements.
+document.addEventListener("DOMContentLoaded", () => {
+  const menuToggle = document.querySelector("#menu-toggle");
+  const navMenu = document.querySelector("#nav-menu");
+  const currentYear = document.querySelector("#current-year");
+  const desktopBreakpoint = window.matchMedia("(min-width: 1001px)");
+
+  if (currentYear) currentYear.textContent = new Date().getFullYear();
+
+  if (!menuToggle || !navMenu) return;
+
+  const closeMenu = () => {
+    navMenu.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open navigation menu");
+  };
+
+  menuToggle.addEventListener("click", () => {
+    const isOpen = navMenu.classList.toggle("is-open");
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close navigation menu" : "Open navigation menu"
+    );
+  });
+
+  navMenu.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+
+  desktopBreakpoint.addEventListener?.("change", (event) => {
+    if (event.matches) closeMenu();
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+      closeMenu();
+    }
+  });
+});
 </script>
 
 
