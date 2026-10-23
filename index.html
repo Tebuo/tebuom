@@ -309,6 +309,40 @@ awarded a Certificate of Secondary Education.
 </div>
 </section>
 
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+
+    if (!menuToggle || !navMenu) return;
+
+    function closeMenu() {
+        navMenu.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+    }
+
+    menuToggle.addEventListener("click", function () {
+        const isOpen = navMenu.classList.toggle("active");
+
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Close navigation menu" : "Open navigation menu"
+        );
+    });
+
+    navMenu.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 768) {
+            closeMenu();
+        }
+    });
+});
+</script>
 
 
 
